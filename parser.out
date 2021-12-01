@@ -1,0 +1,349 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    FINSTRUCTION
+    FPROGRAM
+
+Grammar
+
+Rule 0     S' -> expression
+Rule 1     expression -> expression PLUS term
+Rule 2     expression -> expression SUBSTRACTION term
+Rule 3     expression -> term
+Rule 4     term -> term MULTIPLICATION factor
+Rule 5     term -> term DIVISON factor
+Rule 6     term -> factor
+Rule 7     factor -> INTEGER
+Rule 8     factor -> DECIMAL
+Rule 9     factor -> OPARENTHESIS expression CPARENTHESIS
+Rule 10    factor -> OBRACKETS expression CBRACKETS
+
+Terminals, with rules where they appear
+
+CBRACKETS            : 10
+CPARENTHESIS         : 9
+DECIMAL              : 8
+DIVISON              : 5
+FINSTRUCTION         : 
+FPROGRAM             : 
+INTEGER              : 7
+MULTIPLICATION       : 4
+OBRACKETS            : 10
+OPARENTHESIS         : 9
+PLUS                 : 1
+SUBSTRACTION         : 2
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 1 2 9 10 0
+factor               : 4 5 6
+term                 : 1 2 3 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . expression PLUS term
+    (2) expression -> . expression SUBSTRACTION term
+    (3) expression -> . term
+    (4) term -> . term MULTIPLICATION factor
+    (5) term -> . term DIVISON factor
+    (6) term -> . factor
+    (7) factor -> . INTEGER
+    (8) factor -> . DECIMAL
+    (9) factor -> . OPARENTHESIS expression CPARENTHESIS
+    (10) factor -> . OBRACKETS expression CBRACKETS
+
+    INTEGER         shift and go to state 4
+    DECIMAL         shift and go to state 5
+    OPARENTHESIS    shift and go to state 6
+    OBRACKETS       shift and go to state 7
+
+    expression                     shift and go to state 1
+    term                           shift and go to state 2
+    factor                         shift and go to state 3
+
+state 1
+
+    (0) S' -> expression .
+    (1) expression -> expression . PLUS term
+    (2) expression -> expression . SUBSTRACTION term
+
+    PLUS            shift and go to state 8
+    SUBSTRACTION    shift and go to state 9
+
+
+state 2
+
+    (3) expression -> term .
+    (4) term -> term . MULTIPLICATION factor
+    (5) term -> term . DIVISON factor
+
+    PLUS            reduce using rule 3 (expression -> term .)
+    SUBSTRACTION    reduce using rule 3 (expression -> term .)
+    $end            reduce using rule 3 (expression -> term .)
+    CPARENTHESIS    reduce using rule 3 (expression -> term .)
+    CBRACKETS       reduce using rule 3 (expression -> term .)
+    MULTIPLICATION  shift and go to state 10
+    DIVISON         shift and go to state 11
+
+
+state 3
+
+    (6) term -> factor .
+
+    MULTIPLICATION  reduce using rule 6 (term -> factor .)
+    DIVISON         reduce using rule 6 (term -> factor .)
+    PLUS            reduce using rule 6 (term -> factor .)
+    SUBSTRACTION    reduce using rule 6 (term -> factor .)
+    $end            reduce using rule 6 (term -> factor .)
+    CPARENTHESIS    reduce using rule 6 (term -> factor .)
+    CBRACKETS       reduce using rule 6 (term -> factor .)
+
+
+state 4
+
+    (7) factor -> INTEGER .
+
+    MULTIPLICATION  reduce using rule 7 (factor -> INTEGER .)
+    DIVISON         reduce using rule 7 (factor -> INTEGER .)
+    PLUS            reduce using rule 7 (factor -> INTEGER .)
+    SUBSTRACTION    reduce using rule 7 (factor -> INTEGER .)
+    $end            reduce using rule 7 (factor -> INTEGER .)
+    CPARENTHESIS    reduce using rule 7 (factor -> INTEGER .)
+    CBRACKETS       reduce using rule 7 (factor -> INTEGER .)
+
+
+state 5
+
+    (8) factor -> DECIMAL .
+
+    MULTIPLICATION  reduce using rule 8 (factor -> DECIMAL .)
+    DIVISON         reduce using rule 8 (factor -> DECIMAL .)
+    PLUS            reduce using rule 8 (factor -> DECIMAL .)
+    SUBSTRACTION    reduce using rule 8 (factor -> DECIMAL .)
+    $end            reduce using rule 8 (factor -> DECIMAL .)
+    CPARENTHESIS    reduce using rule 8 (factor -> DECIMAL .)
+    CBRACKETS       reduce using rule 8 (factor -> DECIMAL .)
+
+
+state 6
+
+    (9) factor -> OPARENTHESIS . expression CPARENTHESIS
+    (1) expression -> . expression PLUS term
+    (2) expression -> . expression SUBSTRACTION term
+    (3) expression -> . term
+    (4) term -> . term MULTIPLICATION factor
+    (5) term -> . term DIVISON factor
+    (6) term -> . factor
+    (7) factor -> . INTEGER
+    (8) factor -> . DECIMAL
+    (9) factor -> . OPARENTHESIS expression CPARENTHESIS
+    (10) factor -> . OBRACKETS expression CBRACKETS
+
+    INTEGER         shift and go to state 4
+    DECIMAL         shift and go to state 5
+    OPARENTHESIS    shift and go to state 6
+    OBRACKETS       shift and go to state 7
+
+    expression                     shift and go to state 12
+    term                           shift and go to state 2
+    factor                         shift and go to state 3
+
+state 7
+
+    (10) factor -> OBRACKETS . expression CBRACKETS
+    (1) expression -> . expression PLUS term
+    (2) expression -> . expression SUBSTRACTION term
+    (3) expression -> . term
+    (4) term -> . term MULTIPLICATION factor
+    (5) term -> . term DIVISON factor
+    (6) term -> . factor
+    (7) factor -> . INTEGER
+    (8) factor -> . DECIMAL
+    (9) factor -> . OPARENTHESIS expression CPARENTHESIS
+    (10) factor -> . OBRACKETS expression CBRACKETS
+
+    INTEGER         shift and go to state 4
+    DECIMAL         shift and go to state 5
+    OPARENTHESIS    shift and go to state 6
+    OBRACKETS       shift and go to state 7
+
+    expression                     shift and go to state 13
+    term                           shift and go to state 2
+    factor                         shift and go to state 3
+
+state 8
+
+    (1) expression -> expression PLUS . term
+    (4) term -> . term MULTIPLICATION factor
+    (5) term -> . term DIVISON factor
+    (6) term -> . factor
+    (7) factor -> . INTEGER
+    (8) factor -> . DECIMAL
+    (9) factor -> . OPARENTHESIS expression CPARENTHESIS
+    (10) factor -> . OBRACKETS expression CBRACKETS
+
+    INTEGER         shift and go to state 4
+    DECIMAL         shift and go to state 5
+    OPARENTHESIS    shift and go to state 6
+    OBRACKETS       shift and go to state 7
+
+    term                           shift and go to state 14
+    factor                         shift and go to state 3
+
+state 9
+
+    (2) expression -> expression SUBSTRACTION . term
+    (4) term -> . term MULTIPLICATION factor
+    (5) term -> . term DIVISON factor
+    (6) term -> . factor
+    (7) factor -> . INTEGER
+    (8) factor -> . DECIMAL
+    (9) factor -> . OPARENTHESIS expression CPARENTHESIS
+    (10) factor -> . OBRACKETS expression CBRACKETS
+
+    INTEGER         shift and go to state 4
+    DECIMAL         shift and go to state 5
+    OPARENTHESIS    shift and go to state 6
+    OBRACKETS       shift and go to state 7
+
+    term                           shift and go to state 15
+    factor                         shift and go to state 3
+
+state 10
+
+    (4) term -> term MULTIPLICATION . factor
+    (7) factor -> . INTEGER
+    (8) factor -> . DECIMAL
+    (9) factor -> . OPARENTHESIS expression CPARENTHESIS
+    (10) factor -> . OBRACKETS expression CBRACKETS
+
+    INTEGER         shift and go to state 4
+    DECIMAL         shift and go to state 5
+    OPARENTHESIS    shift and go to state 6
+    OBRACKETS       shift and go to state 7
+
+    factor                         shift and go to state 16
+
+state 11
+
+    (5) term -> term DIVISON . factor
+    (7) factor -> . INTEGER
+    (8) factor -> . DECIMAL
+    (9) factor -> . OPARENTHESIS expression CPARENTHESIS
+    (10) factor -> . OBRACKETS expression CBRACKETS
+
+    INTEGER         shift and go to state 4
+    DECIMAL         shift and go to state 5
+    OPARENTHESIS    shift and go to state 6
+    OBRACKETS       shift and go to state 7
+
+    factor                         shift and go to state 17
+
+state 12
+
+    (9) factor -> OPARENTHESIS expression . CPARENTHESIS
+    (1) expression -> expression . PLUS term
+    (2) expression -> expression . SUBSTRACTION term
+
+    CPARENTHESIS    shift and go to state 18
+    PLUS            shift and go to state 8
+    SUBSTRACTION    shift and go to state 9
+
+
+state 13
+
+    (10) factor -> OBRACKETS expression . CBRACKETS
+    (1) expression -> expression . PLUS term
+    (2) expression -> expression . SUBSTRACTION term
+
+    CBRACKETS       shift and go to state 19
+    PLUS            shift and go to state 8
+    SUBSTRACTION    shift and go to state 9
+
+
+state 14
+
+    (1) expression -> expression PLUS term .
+    (4) term -> term . MULTIPLICATION factor
+    (5) term -> term . DIVISON factor
+
+    PLUS            reduce using rule 1 (expression -> expression PLUS term .)
+    SUBSTRACTION    reduce using rule 1 (expression -> expression PLUS term .)
+    $end            reduce using rule 1 (expression -> expression PLUS term .)
+    CPARENTHESIS    reduce using rule 1 (expression -> expression PLUS term .)
+    CBRACKETS       reduce using rule 1 (expression -> expression PLUS term .)
+    MULTIPLICATION  shift and go to state 10
+    DIVISON         shift and go to state 11
+
+
+state 15
+
+    (2) expression -> expression SUBSTRACTION term .
+    (4) term -> term . MULTIPLICATION factor
+    (5) term -> term . DIVISON factor
+
+    PLUS            reduce using rule 2 (expression -> expression SUBSTRACTION term .)
+    SUBSTRACTION    reduce using rule 2 (expression -> expression SUBSTRACTION term .)
+    $end            reduce using rule 2 (expression -> expression SUBSTRACTION term .)
+    CPARENTHESIS    reduce using rule 2 (expression -> expression SUBSTRACTION term .)
+    CBRACKETS       reduce using rule 2 (expression -> expression SUBSTRACTION term .)
+    MULTIPLICATION  shift and go to state 10
+    DIVISON         shift and go to state 11
+
+
+state 16
+
+    (4) term -> term MULTIPLICATION factor .
+
+    MULTIPLICATION  reduce using rule 4 (term -> term MULTIPLICATION factor .)
+    DIVISON         reduce using rule 4 (term -> term MULTIPLICATION factor .)
+    PLUS            reduce using rule 4 (term -> term MULTIPLICATION factor .)
+    SUBSTRACTION    reduce using rule 4 (term -> term MULTIPLICATION factor .)
+    $end            reduce using rule 4 (term -> term MULTIPLICATION factor .)
+    CPARENTHESIS    reduce using rule 4 (term -> term MULTIPLICATION factor .)
+    CBRACKETS       reduce using rule 4 (term -> term MULTIPLICATION factor .)
+
+
+state 17
+
+    (5) term -> term DIVISON factor .
+
+    MULTIPLICATION  reduce using rule 5 (term -> term DIVISON factor .)
+    DIVISON         reduce using rule 5 (term -> term DIVISON factor .)
+    PLUS            reduce using rule 5 (term -> term DIVISON factor .)
+    SUBSTRACTION    reduce using rule 5 (term -> term DIVISON factor .)
+    $end            reduce using rule 5 (term -> term DIVISON factor .)
+    CPARENTHESIS    reduce using rule 5 (term -> term DIVISON factor .)
+    CBRACKETS       reduce using rule 5 (term -> term DIVISON factor .)
+
+
+state 18
+
+    (9) factor -> OPARENTHESIS expression CPARENTHESIS .
+
+    MULTIPLICATION  reduce using rule 9 (factor -> OPARENTHESIS expression CPARENTHESIS .)
+    DIVISON         reduce using rule 9 (factor -> OPARENTHESIS expression CPARENTHESIS .)
+    PLUS            reduce using rule 9 (factor -> OPARENTHESIS expression CPARENTHESIS .)
+    SUBSTRACTION    reduce using rule 9 (factor -> OPARENTHESIS expression CPARENTHESIS .)
+    $end            reduce using rule 9 (factor -> OPARENTHESIS expression CPARENTHESIS .)
+    CPARENTHESIS    reduce using rule 9 (factor -> OPARENTHESIS expression CPARENTHESIS .)
+    CBRACKETS       reduce using rule 9 (factor -> OPARENTHESIS expression CPARENTHESIS .)
+
+
+state 19
+
+    (10) factor -> OBRACKETS expression CBRACKETS .
+
+    MULTIPLICATION  reduce using rule 10 (factor -> OBRACKETS expression CBRACKETS .)
+    DIVISON         reduce using rule 10 (factor -> OBRACKETS expression CBRACKETS .)
+    PLUS            reduce using rule 10 (factor -> OBRACKETS expression CBRACKETS .)
+    SUBSTRACTION    reduce using rule 10 (factor -> OBRACKETS expression CBRACKETS .)
+    $end            reduce using rule 10 (factor -> OBRACKETS expression CBRACKETS .)
+    CPARENTHESIS    reduce using rule 10 (factor -> OBRACKETS expression CBRACKETS .)
+    CBRACKETS       reduce using rule 10 (factor -> OBRACKETS expression CBRACKETS .)
+

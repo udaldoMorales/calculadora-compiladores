@@ -1,8 +1,5 @@
 import ply.lex as lex
 import re
-import codecs
-import os
-import sys
 
 tokens = [
     'PLUS', 'SUBSTRACTION', 'MULTIPLICATION', 'DIVISON',
@@ -28,50 +25,10 @@ def t_DECIMAL( t ):
     return t
 
 def t_INTEGER( t ):
-    r'\d'
+    r'\d+'
     t.value = int( t.value )
     return t
 
 def t_error( t ):
     print("Ilegal caracter '%s'" % t.value[0])
     t.lexer.skip(1)
-
-def searchFiles( c_directory ):
-    current_files = []
-    selectedFile = ''
-    response = False
-    cont = 1
-
-    for base, dirs, files in os.walk( c_directory ):
-        current_files.append( files )
-    
-    for c_file in files:
-        print( str( cont ) +  ". " + c_file)
-        cont += 1
-
-    while not response:
-        selectedFile = input('\nSelect your test: ')
-        for c_file in files:
-            if c_file == files[int( selectedFile ) - 1]:
-                response = True
-                break
-
-    print("You are did selected the test \'%s' \n" % files[int( selectedFile ) - 1])
-    return files[int( selectedFile ) - 1]
-
-directory = os.getcwd() + '/test'
-m_file = searchFiles( directory )
-test = directory + '/' + m_file
-print(test)
-fp = codecs.open( test, "r", "utf-8")
-chain = fp.read()
-fp.close()
-
-lexer = lex.lex()
-
-lexer.input( chain )
-
-while True:
-    token = lexer.token()
-    if not token : break
-    print( token )

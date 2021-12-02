@@ -4,6 +4,7 @@ import sys
 
 from a_lex import *
 from a_sintac import *
+from tabulate import tabulate
 
 def searchFiles( c_directory ):
     current_files = []
@@ -43,10 +44,25 @@ lexer = lex.lex()
 
 lexer.input( chain )
 
+
+tipo = []
+valor = []
+linea = []
+posicion = []
+matriz = []
+i = 0
 while True:
-    token = lexer.token()
-    if not token : break
-    print( token )
+    tok = lexer.token()
+    if not tok: 
+        break 
+    tipo.append(tok.type)
+    valor.append(tok.value)
+    linea.append(tok.lineno)
+    posicion.append(tok.lexpos)
+    matriz.append([tipo[i],valor[i],linea[i],posicion[i]])
+    i = i+1
+
+print(tabulate(matriz, headers=["Token","Valor","Linea","Posición"], showindex="always", tablefmt="grid", colalign=("center","center")))
 
 # Build the parser
 parser = yacc.yacc()
@@ -61,4 +77,5 @@ if (result is None):
     print("The result it is not longer computable")
 else:
     print('\nThe result of the operation is: %s'%result)
+
 

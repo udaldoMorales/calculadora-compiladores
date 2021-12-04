@@ -40,7 +40,7 @@ def t_DECIMAL( t ):
 
 #reconocer un numero entero de 2 o mas digitos
 def t_INTEGER( t ):
-    r'\d'
+    r'\d+'
     t.value = int( t.value )
     return t
 

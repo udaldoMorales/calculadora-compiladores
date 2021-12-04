@@ -6,8 +6,8 @@ tokens = [
     'OPARENTHESIS', 'CPARENTHESIS', 'OBRACKETS', 'CBRACKETS',
     'FPROGRAM', 'FINSTRUCTION', 'INTEGER', 'DECIMAL'
     ]
-
-t_ignore = r'[ \\r]'
+    
+t_ignore = ' \t'
 t_PLUS = r'\+'
 t_SUBSTRACTION = r'\-'
 t_MULTIPLICATION = r'\*'
@@ -18,6 +18,10 @@ t_OBRACKETS = r'\['
 t_CBRACKETS = r'\]'
 t_FPROGRAM = r'\$'
 t_FINSTRUCTION = r'\\r'
+
+def t_newline( t ):
+  r'\n+'
+  t.lexer.lineno += len( t.value )
 
 def t_DECIMAL( t ):
     r'\d+\.\d+'

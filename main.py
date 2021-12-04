@@ -1,81 +1,106 @@
-import codecs
-import os
 import sys
 
-from a_lex import *
-from a_sintac import *
-from tabulate import tabulate
+from PyQt5.QtWidgets import *
+from PyQt5.uic.properties import QtGui
 
-def searchFiles( c_directory ):
-    current_files = []
-    selectedFile = ''
-    response = False
-    cont = 1
+from vista.home import  *
+from analizador_lexico import *
+from analizador_sintactico import *
 
-    for base, dirs, files in os.walk( c_directory ):
-        current_files.append( files )
-    
-    for c_file in files:
-        print( str( cont ) +  ". " + c_file)
-        cont += 1
+class Main(QMainWindow):
 
-    while not response:
-        selectedFile = input('\nSelect your test: ')
-        for c_file in files:
-            if c_file == files[int( selectedFile ) - 1]:
-                response = True
-                break
+    def __init__(self):
+        QMainWindow.__init__(self)
 
-    print("You are did selected the test \'%s' \n" % files[int( selectedFile ) - 1])
-    return files[int( selectedFile ) - 1]
+        # Instaciamos nuestra ventanas widget home
+        self.home = Ui_home()
+        self.home.setupUi(self)
 
-directory = os.getcwd() + '/test'
-m_file = searchFiles( directory )
-test = directory + '/' + m_file
-print(test)
-fp = codecs.open( test, "r", "utf-8")
-chain = fp.read()
-fp.close()
+        # Eventos
+        self.home.bt_lexico.clicked.connect(self.ev_lexico)
+        self.home.bt_sintactico.clicked.connect(self.ev_sintactico)
 
+        self.home.bt_archivo.clicked.connect(self.ev_archivo)
+        self.home.bt_limpiar.clicked.connect(self.ev_limpiar)
 
-print ('\nThis is the entry: %s\n'%chain)
+        #Desarrollandores
 
-lexer = lex.lex()
+    def ev_lexico(self):
+        '''
+        Manejo de analisis de expresion lexemas
 
-lexer.input( chain )
+        '''
+        # limpiamos el campo
+        self.home.tx_lexico.setText('')
 
+        #Obtenemos los datos ingresados
+        datos = self.home.tx_ingreso.toPlainText().strip()
 
-tipo = []
-valor = []
-linea = []
-posicion = []
-matriz = []
-i = 0
-while True:
-    tok = lexer.token()
-    if not tok: 
-        break 
-    tipo.append(tok.type)
-    valor.append(tok.value)
-    linea.append(tok.lineno)
-    posicion.append(tok.lexpos)
-    matriz.append([tipo[i],valor[i],linea[i],posicion[i]])
-    i = i+1
+        # analizamos la lexemas de los datos ingresados
+        resultado_lexico = prueba(datos)
 
-print(tabulate(matriz, headers=["Token","Valor","Linea","Posición"], showindex="always", tablefmt="grid", colalign=("center","center")))
-
-# Build the parser
-parser = yacc.yacc()
-
-result = parser.parse(chain)
-
-print('\nThe steps are: ')
-for i in steps:
-    print(i)
-
-if (result is None):
-    print("The result it is not longer computable")
-else:
-    print('\nThe result of the operation is: %s'%result)
+       # self.home.tx_lexico.setText("Analizando lexico")
+        cadena= ''
+        for lex in resultado_lexico:
+            cadena += lex + "\n"
+        self.home.tx_lexico.setText(cadena)
 
 
+    def ev_sintactico(self):
+        '''
+        Manejo de analisis gramatico
+        '''
+
+        # limpiamos el campo
+        self.home.tx_sintactico.setText('')
+        #Obtenemos los datos ingresados
+        datos = self.home.tx_ingreso.toPlainText().strip()
+
+        #analizamos la gramatica de los datos ingresados
+        resultado_sintactico = prueba_sintactica(datos)
+        cadena = ''
+
+        #Armanos la cadena a mostrar
+        for item in resultado_sintactico:
+            cadena += item + "\n"
+        # mostramos en pantalla
+        self.home.tx_sintactico.setText( cadena )
+
+    def ev_archivo(self):
+        '''
+        Manejo de subir archivo 
+        '''
+        dlg = QFileDialog()
+
+        if dlg.exec_():
+            filenames = dlg.selectedFiles()
+            f = open(filenames[0], 'r')
+
+            with f:
+                data = f.read().strip()
+                if data:
+                    self.home.tx_ingreso.setText(data+"\n")
+
+    def ev_limpiar(self):
+        '''
+        Manejo de limpieza de campos
+        '''
+        self.home.tx_ingreso.setText('')
+        self.home.tx_lexico.setText('')
+        self.home.tx_sintactico.setText('')
+
+
+def iniciar():
+    app = QApplication(sys.argv)
+
+    # Instaciomos nuestro ventana
+    ventana = Main()
+    # Mostramos nuestra app
+    ventana.show()
+
+    #Controlamos el cierre de la app
+    sys.exit(app.exec_())
+
+
+if __name__ == '__main__':
+    iniciar()

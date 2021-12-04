@@ -58,18 +58,11 @@ def prueba(data):
     lexer.input(data)
 
     resultado_lexema.clear()
-    tipo = []
-    valor = []
-    linea = []
-    posicion = []
-    matriz = []
-    i = 0
     
     while True:
         token = lexer.token()
         if not token:
             break
-        # print("lexema de "+tok.type+" valor "+tok.value+" linea "tok.lineno)
         estado = "Linea {:4} Token {:16} Valor {:16} Posicion {:4}".format(str(token.lineno),str(token.type) ,str(token.value), str(token.lexpos) )
         resultado_lexema.append(estado)
     

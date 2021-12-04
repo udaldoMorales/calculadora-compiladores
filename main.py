@@ -40,42 +40,60 @@ fp.close()
 
 print ('\nThis is the entry: %s\n'%chain)
 
-lexer = lex.lex()
+inParts = chain.split('\n')
 
-lexer.input( chain )
+for iteration in range(0, len(inParts)):
+
+    lexer = lex.lex()
+
+    #lexer.input( chain )
+    lexer.input( inParts[iteration] )
 
 
-tipo = []
-valor = []
-linea = []
-posicion = []
-matriz = []
-i = 0
-while True:
-    tok = lexer.token()
-    if not tok: 
-        break 
-    tipo.append(tok.type)
-    valor.append(tok.value)
-    linea.append(tok.lineno)
-    posicion.append(tok.lexpos)
-    matriz.append([tipo[i],valor[i],linea[i],posicion[i]])
-    i = i+1
+    tipo = []
+    valor = []
+    linea = []
+    posicion = []
+    matriz = []
+    i = 0
+    while True:
+        tok = lexer.token()
+        if not tok: 
+            break 
+        tipo.append(tok.type)
+        valor.append(tok.value)
+        linea.append(tok.lineno)
+        posicion.append(tok.lexpos)
+        matriz.append([tipo[i],valor[i],linea[i],posicion[i]])
+        i = i+1
 
-print(tabulate(matriz, headers=["Token","Valor","Linea","Posición"], showindex="always", tablefmt="grid", colalign=("center","center")))
+    print(tabulate(matriz, headers=["Token","Valor","Linea","Posición"], showindex="always", tablefmt="grid", colalign=("center","center")))
+    print('\n')
 
 # Build the parser
-parser = yacc.yacc()
+startIndex, endIndex, temp = 0, 0, 0
+for iteration2 in range(0, len(inParts)):
+    parser = yacc.yacc()
 
-result = parser.parse(chain)
+    print('\nParsing for %s'%inParts[iteration2])
 
-print('\nThe steps are: ')
-for i in steps:
-    print(i)
+    result = parser.parse(inParts[iteration2].strip())
+ 
+    endIndex = len(steps)
+    startIndex = temp
 
-if (result is None):
-    print("The result it is not longer computable")
-else:
-    print('\nThe result of the operation is: %s'%result)
+    print('\nThe steps are ')
+    for i in range(startIndex, endIndex):
+        print(steps[i])
 
+    temp = endIndex
 
+    if (result is None):
+        print("The result it is not longer computable")
+    else:
+        print('\nThe result of the operation is: %s\n'%result)
+
+    parser = None
+
+    #print('Steps at end')
+    #print (steps)

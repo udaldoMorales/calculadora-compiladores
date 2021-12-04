@@ -7,7 +7,7 @@ tokens = [
     'FPROGRAM', 'FINSTRUCTION', 'INTEGER', 'DECIMAL'
     ]
 
-t_ignore = r' '
+t_ignore = r'[ \\r]'
 t_PLUS = r'\+'
 t_SUBSTRACTION = r'\-'
 t_MULTIPLICATION = r'\*'
@@ -17,7 +17,7 @@ t_CPARENTHESIS = r'\)'
 t_OBRACKETS = r'\['
 t_CBRACKETS = r'\]'
 t_FPROGRAM = r'\$'
-t_FINSTRUCTION = r'\;'
+t_FINSTRUCTION = r'\\r'
 
 def t_DECIMAL( t ):
     r'\d+\.\d+'

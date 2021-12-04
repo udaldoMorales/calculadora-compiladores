@@ -58,4 +58,3 @@ def p_factor_brack_expr(p):
 # Error rule for syntax errors
 def p_error(p):
 	print("\nSyntax error in input! %s"%(str(p.type)))
- 

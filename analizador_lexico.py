@@ -72,7 +72,7 @@ def prueba(data):
         # print("lexema de "+tok.type+" valor "+tok.value+" linea "tok.lineno)
         estado = "Linea {:4} Token {:16} Valor {:16} Posicion {:4}".format(str(token.lineno),str(token.type) ,str(token.value), str(token.lexpos) )
         resultado_lexema.append(estado)
-
+    
     return resultado_lexema
 
  # instanciamos el analizador lexico

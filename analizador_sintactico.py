@@ -80,22 +80,25 @@ def prueba_sintactica(data):
 	for iteration2 in range(0, len(inParts)):
 		parser = yacc.yacc()
 		resultado_gramatica.append('\nParsing for %s'%inParts[iteration2])
+		resultado_gramatica.append('\n')
 		result = parser.parse(inParts[iteration2].strip())
 
 		endIndex = len(steps)
 		startIndex = temp
 
-	resultado_gramatica.append(str("The steps are:"))
-	for i in range(startIndex, endIndex):
-		resultado_gramatica.append(str(steps[i]))
-	
-	temp = endIndex
+		resultado_gramatica.append(str("The steps are:"))
+		for i in range(startIndex, endIndex):
+			resultado_gramatica.append(str(steps[i]))
+		
+		temp = endIndex
 
-	if (result is None):
-		resultado_gramatica.append(str("\nThe result it is not longer computable"))
-	else:
-		resultado_gramatica.append(str("\nThe result of the operation is: "))
-		resultado_gramatica.append(str(result))
+		if (result is None):
+			resultado_gramatica.append(str("\nThe result it is not longer computable"))
+		else:
+			resultado_gramatica.append(str("\nThe result of the operation is: ") + str(result))
+			resultado_gramatica.append(str("=========================================="))
+		
+		parser = None
 
 	return resultado_gramatica
 

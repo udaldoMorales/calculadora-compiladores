@@ -70,25 +70,34 @@ def p_error(t):
 
 
 # instanciamos el analizador sintactico
-parser = yacc.yacc()
 
 def prueba_sintactica(data):
-    global resultado_gramatica
-    resultado_gramatica.clear()
+	global resultado_gramatica
+	resultado_gramatica.clear()
+	inParts = data.split('\n')
 
-    result = parser.parse(data)
+	startIndex, endIndex, temp = 0, 0, 0
+	for iteration2 in range(0, len(inParts)):
+		parser = yacc.yacc()
+		resultado_gramatica.append('\nParsing for %s'%inParts[iteration2])
+		result = parser.parse(inParts[iteration2].strip())
 
-    resultado_gramatica.append(str("The steps are:"))
-    for i in steps:
-        resultado_gramatica.append(str(i))
+		endIndex = len(steps)
+		startIndex = temp
 
-    if (result is None):
-        resultado_gramatica.append(str("\nThe result it is not longer computable"))
-    else:
-        resultado_gramatica.append(str("\nThe result of the operation is: "))
-        resultado_gramatica.append(str(result))
+	resultado_gramatica.append(str("The steps are:"))
+	for i in range(startIndex, endIndex):
+		resultado_gramatica.append(str(steps[i]))
+	
+	temp = endIndex
 
-    return resultado_gramatica
+	if (result is None):
+		resultado_gramatica.append(str("\nThe result it is not longer computable"))
+	else:
+		resultado_gramatica.append(str("\nThe result of the operation is: "))
+		resultado_gramatica.append(str(result))
+
+	return resultado_gramatica
 
 if __name__ == '__main__':
     while True:

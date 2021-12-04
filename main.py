@@ -46,17 +46,13 @@ for iteration in range(0, len(inParts)):
 
     lexer = lex.lex()
 
-    #lexer.input( chain )
-    lexer.input( inParts[iteration] )
+    lexer.input( chain )
+    #lexer.input( inParts[iteration] )
 
-
-    tipo = []
-    valor = []
-    linea = []
-    posicion = []
-    matriz = []
+    tipo,valor,linea,posicion, matriz = [] ,[],[],[],[]
     i = 0
-    while True:
+
+    while chain:
         tok = lexer.token()
         if not tok: 
             break 
@@ -67,8 +63,8 @@ for iteration in range(0, len(inParts)):
         matriz.append([tipo[i],valor[i],linea[i],posicion[i]])
         i = i+1
 
-    print(tabulate(matriz, headers=["Token","Valor","Linea","Posición"], showindex="always", tablefmt="grid", colalign=("center","center")))
-    print('\n')
+print(tabulate(matriz, headers=["Token","Valor","Linea","Posición"], showindex="always", tablefmt="grid", colalign=("center","center")))
+print('\n')
 
 # Build the parser
 startIndex, endIndex, temp = 0, 0, 0
